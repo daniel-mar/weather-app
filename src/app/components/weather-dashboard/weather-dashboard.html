@@ -1,1 +1,12 @@
-<p>weather-dashboard works!</p>
+<div class="dashboard-wrapper">
+    <h1>Weather Dashboard</h1>
+
+    <app-search-bar (search)="fetchWeather($event)"></app-search-bar>
+
+    @if (loading) {
+        <p class="status-msg">Fetching structural atmospheric records...</p>
+        
+    }
+
+
+</div>

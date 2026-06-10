@@ -1,1 +1,16 @@
-<p>forecast-cards works!</p>
+<div class="forecast-grid">
+    @for (day of days; track trackByDate($index, day)) {
+        <div class="card">
+            <h4>{{ day.date | date: 'EEE, MMM d' }}</h4>
+            <img [src]="day.icon" [alt]="day.condition" />
+            <p class="temp">
+                @if (isCelcius) {
+                    {{ day.temp | number: '1.0-1' }}°C
+                } @else {
+                    {{ day.temp * 9/5 + 32 | number: '1.0-1' }} °F
+                }
+            </p>
+            <p class="condition">{{ day.condition }}</p>
+        </div>
+    }
+</div>
