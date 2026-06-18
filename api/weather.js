@@ -11,18 +11,18 @@ export default async function handler(req, res) {
     const url = `${baseUrl}?key=${apiKey}&q=${city}&days=5&api=no&alerts=no`;
 
     try {
-        const apiResonse = await fetch(url);
+        const apiResponse = await fetch(url);
 
-        if (!apiResonse.ok) {
+        if (!apiResponse.ok) {
             console.error(`External API Failure Status: ${apiResponse.status}`);
-            return res.status(apiResonse.status).json({ error: 'Failed fetching weather data' });
+            return res.status(apiResponse.status).json({ error: 'Failed fetching weather data' });
         }
 
-        const data = await apiResonse.json();
+        const data = await apiResponse.json();
         return res.status(200).json(data);
     }   catch (error) {
         console.error("Serverless Function Exception", error);
-        return response.status(500).json({ error: 'Internal Server Error' });
+        return res.status(500).json({ error: 'Internal Server Error' });
     }
 
 
