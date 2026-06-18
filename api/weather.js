@@ -7,8 +7,15 @@ export default async function handler(req, res) {
 
     // Access key safely injecting into process environment
     const apiKey = process.env.WEATHER_API_KEY;
+
+    if (!apiKey) {
+        console.error("CRITICAL ERROR: WEATHER_API_KEY is undefined in Environment Variables");
+        return res.status(500).json({ error: 'Server Configuration Error' });
+    }
+
+    const safeCity = encodeURIComponent(city);
     const baseUrl = 'https://api.weatherapi.com/v1/forecast.json';
-    const url = `${baseUrl}?key=${apiKey}&q=${city}&days=5&api=no&alerts=no`;
+    const url = `${baseUrl}?key=${apiKey}&q=${safeCity}&days=5&aqi=no&alerts=no`;
 
     try {
         const apiResponse = await fetch(url);
