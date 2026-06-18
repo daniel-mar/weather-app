@@ -40,9 +40,7 @@
             "ssr": {
               "entry": "src/server.ts"
             },
-            "prerender": {
-              "routesFile": "routes.txt"
-            }
+            "prerender": false
           },
           "configurations": {
             "production": {
