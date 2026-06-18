@@ -1,0 +1,77 @@
+// 1. MOBILE FIRST (Default view for smartphones)
+// On mobile, the grid acts like a vertical column so cards stack nicely.
+.forecast-grid {
+  display: flex;
+  flex-direction: column; 
+  gap: 16px;
+  width: 100%;
+  padding: 16px 0;
+
+  // Layout for the individual weather cards
+  .card {
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    border: 1px solid #eef2f5;
+    
+    // Align content cleanly on mobile layouts (side-by-side inside the card)
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h4 {
+      margin: 0;
+      font-size: 1rem;
+      color: #333333;
+    }
+
+    img {
+      width: 48px;
+      height: 48px;
+    }
+
+    .temp {
+      margin: 0;
+      font-weight: 600;
+      font-size: 1.1rem;
+      color: #2196f3;
+    }
+
+    .condition {
+      margin: 0;
+      font-size: 0.9rem;
+      color: #777777;
+    }
+  }
+
+  // 2. TABLET & DESKTOP BREAKPOINT (Screens wider than 768px)
+  // When there is enough screen real estate, snap the cards into a row!
+  @media (min-width: 768px) {
+    flex-direction: row; 
+    justify-content: space-between;
+    align-items: stretch; // Makes all forecast cards equal height
+    gap: 16px;
+
+    .card {
+      flex: 1; // Forces every card to occupy an exact equal fractional width share
+      flex-direction: column; // Change internal card layout to a vertical stack
+      justify-content: center;
+      text-align: center;
+      gap: 8px; // Uniform spacing between date, icon, temp, and condition
+
+      h4 {
+        font-size: 0.95rem;
+      }
+
+      .temp {
+        font-size: 1.25rem;
+      }
+    }
+  }
+
+  // 3. LARGE DESKTOP BREAKPOINT (Screens wider than 1024px)
+  @media (min-width: 1024px) {
+    gap: 24px; // Gives more breathing room on wide monitors
+  }
+}

@@ -7,7 +7,7 @@
                 @if (isCelcius) {
                     {{ day.temp | number: '1.0-1' }}°C
                 } @else {
-                    {{ day.temp * 9/5 + 32 | number: '1.0-1' }} °F
+                    {{ (day.temp * 9/5) + 32 | number: '1.0-1' }} °F
                 }
             </p>
             <p class="condition">{{ day.condition }}</p>

@@ -5,8 +5,36 @@
 
     @if (loading) {
         <p class="status-msg">Fetching structural atmospheric records...</p>
-        
     }
 
+    @if (errorMessage) {
+        <p class="error">{{ errorMessage }}</p>
+    }
+
+    @if (weatherData && !loading) {
+        <div class="current-weather">
+            <h2>{{ weatherData.city }}</h2>
+            <button class="toggle-btn" (click)="toggleUnit()">
+                Show {{ isCelcius ? 'Fahrenheit (°F)' : 'Celsius (°C)' }}
+            </button>
+
+            <div class = "weather-meta">
+                <img [src]="weatherData.icon" [alt]="weatherData.condition" />
+                <span class="temp-display">
+                    @if (isCelcius) {
+                        {{ weatherData.currentTemp | number:'1.0-1' }} °C
+                    } @else {
+                        {{ (weatherData.currentTemp * 9/5) + 32 | number: '1.0-1'}} °F
+                    }
+                </span>
+
+                <p class="condition-desc">{{ weatherData.condition }}</p>
+
+            </div>
+        </div>
+
+        <h3>Extended 5-Day Analysis</h3>
+        <app-forecast-cards [days]="weatherData.forecast" [isCelcius]="isCelcius"></app-forecast-cards>
+    }
 
 </div>

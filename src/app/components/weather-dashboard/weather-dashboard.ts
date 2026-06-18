@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { WeatherService } from '../../services/weather.service';
 import { WeatherData } from '../../models/weather.model';
@@ -18,7 +18,10 @@ export class WeatherDashboard implements OnInit {
   errorMessage: string = '';
   loading: boolean = false;
 
-  constructor(private weatherService: WeatherService) {}
+  constructor(
+    private weatherService: WeatherService,
+    private zone: NgZone
+  ) {}
 
   ngOnInit():void {
     this.fetchWeather('Los Angeles');   // Base profile startup on page load
@@ -30,12 +33,16 @@ export class WeatherDashboard implements OnInit {
 
     this.weatherService.getForecast(city).subscribe({
       next: (data) => {
-        this.weatherData = data;
-        this.loading = false;
-      },
+        this.zone.run(() => {
+          this.weatherData = data;
+          this.loading = false;
+      });
+    },
       error: (err) => {
-        this.errorMessage = 'Unable to fetch data for the requested city.';
-        this.loading = false;
+        this.zone.run(() => {
+          this.errorMessage = 'Unable to fetch data for the requested city.';
+          this.loading = false;
+        });
       }
     });
   }
