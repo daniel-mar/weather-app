@@ -4,6 +4,7 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./out-tsc/spec",
+    "rootDir": "./src", // Explicitly defines the input source root to fix the warning
     "types": [
       "vitest/globals"
     ]
